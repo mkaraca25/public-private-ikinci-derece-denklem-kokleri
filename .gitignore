@@ -1,32 +1,100 @@
-# Prerequisites
-*.d
+//main.cpp
+#include <iostream>
+#include "Polinom.h"
+int main(int argc, char** argv)
+{
+	int a,b,c;
+	setlocale(LC_ALL, "Turkish"); 
+	Polinom pol;
+	std::cout << "lütfen X Kare değişkeninin değeri olarak bir tamsayı giriniz:";
+    std::cin >> a;
+    std::cout << "lütfen X değişkeninin değeri olarak bir tamsayı giriniz:";
+    std::cin >> b;
+    std::cout << "lütfen Sabit değişkeninin değeri olarak bir tamsayı giriniz:";
+    std::cin >> c;
+    pol.KatsayilaraDegerAta(a, b, c);
+    pol.KokleriHesapla();
+	return 0;
+}
+//polinom.h
+#include <iostream>
+#include <cmath>
+#ifndef POLINOM_H
+#define POLINOM_H
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+class Polinom 
+{
+	polinom();
+	private:
+		int a;
+		int b;
+		int c;
+	
+	public:
+	void setXKare(int);void setX(int);void setSabit(int);
+	int getXKare();int getX();int getsabit();
+	void KatsayilaraDegerAta(int val1, int val2, int val3)
+	{
+		a = val1;
+		b = val2;
+		c = val3;
+	}
+	int DegerHesapla(int value) 
+	{
+		return (a * value * value) + (b * value) + c;
+	}
 
-# Precompiled Headers
-*.gch
-*.pch
+	void KokleriHesapla() 
+	{
+		double kok1, kok2, delta;
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+		delta = b * b - 4 * a * c;
+		
+		if (delta < 0) 
+		{
+			std::cout << "Denklemin Kökler sanaldır." << std::endl;
+		}
+		else if (delta == 0) 
+		{
+			kok1 = -b / (2 * a);
+			std::cout << "Denklemin Birbirine esit iki kökü vardır: " << kok1 << std::endl;
+		}
+		else
+		 {
+			kok1 = (-b + sqrt((b * b) - 4 * a * c)) / (2 * a);
+			kok2 = (-b - sqrt((b * b) - 4 * a * c)) / (2 * a);
 
-# Fortran module files
-*.mod
-*.smod
+			std::cout << "Denklemin iki farklı kökü vardır." << std::endl;
+			std::cout << "Birinci kök : " << kok1 << std::endl;
+			std::cout << "İkinci kök : " << kok2 << std::endl;
+		}
+	}
+};
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+#endif
+//polinom.cpp
+#include "Polinom.h"
 
-# Executables
-*.exe
-*.out
-*.app
+void Polinom::setXKare(int value) {
+		a = value;
+	}
+
+void Polinom::setX(int value) {
+		b = value;
+	}
+
+void Polinom::setSabit(int value) {
+		c = value;
+	}
+
+int Polinom::getXKare() {
+		return a;
+	}
+
+	int Polinom::getX() {
+		return b;
+	}
+
+	int Polinom::getsabit() {
+		return c;
+	}
